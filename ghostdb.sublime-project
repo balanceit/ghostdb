@@ -1,0 +1,12 @@
+{
+    "folders": [
+        {
+            "path": "/Users/davidmitchell/Dropbox/workspace/go/src/github.com/balanceit/ghostdb"
+        }
+    ],
+    "settings": {
+        "go_project": true,
+        "name": "ghostdb",
+        "main" : "main.go"
+    }
+}

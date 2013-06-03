@@ -11,7 +11,7 @@ import (
 )
 
 func Test_Persist(t *testing.T) {
-	filename := "testfile2"
+	var filename = "testfile"
 	fo, _ := os.Create(filename)
 
 	fo.Close()
@@ -30,5 +30,28 @@ func Test_Persist(t *testing.T) {
 
 	defer func() {
 		os.Remove(filename)
+	}()
+}
+
+func Test_Index(t *testing.T) {
+	var indexfilename = "testindex"
+
+	var fo, _ = os.Create(indexfilename)
+	fo.Close()
+
+	var uuid, _ = utils.GenerateV4String()
+	var location = 0
+	storage.Index(uuid, location, indexfilename)
+	var expected = uuid + strconv.Itoa(location)
+
+	buf, _ := ioutil.ReadFile(indexfilename)
+	s := string(buf)
+
+	if s != expected {
+		t.Errorf("expecting [%s] but got [%s]", s, expected)
+	}
+
+	defer func() {
+		os.Remove(indexfilename)
 	}()
 }

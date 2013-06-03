@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strconv"
+	"unicode/utf8"
 )
 
 func Persist(in string, filename string) error {
@@ -54,4 +56,19 @@ func Read() string {
 	fmt.Printf("found a = %v\n", s)
 
 	return s
+}
+
+func Index(uuid string, location int, filename string) error {
+	var locationString = strconv.Itoa(location)
+
+	err := Persist(uuid+locationString, filename)
+
+	return err
+}
+
+func Store(uuid string, data string, filename string) error {
+	var len = strconv.Itoa(utf8.RuneCountInString(data))
+
+	err := Persist(uuid+len+data, filename)
+	return err
 }
